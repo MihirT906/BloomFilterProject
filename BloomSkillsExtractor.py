@@ -1,4 +1,4 @@
-import bloomFilter2
+import bloomFilter2 as bloomFilter2
 import pdfplumber
 import re
 import os
