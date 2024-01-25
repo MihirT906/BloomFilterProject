@@ -7,14 +7,16 @@ class BloomSkillsExtractorGUI:
         self.master = master
         self.master.title("Resume Skill Extractor")
 
-        self.label_skills = tk.Label(self.master, text="Select Skills File:")
-        self.label_skills.pack()
+        # self.label_skills = tk.Label(self.master, text="Skills File:")
+        # self.label_skills.pack()
 
-        self.entry_skills = tk.Entry(self.master, width=50)
-        self.entry_skills.pack()
+        # Hardcoded path to skills file
+        self.skills_file_path = "Skills/skills.txt"
 
-        self.browse_skills_button = tk.Button(self.master, text="Browse", command=self.browse_skills_file)
-        self.browse_skills_button.pack()
+        # Entry field to display the hardcoded path
+        # self.entry_skills = tk.Entry(self.master, width=50)
+        # self.entry_skills.insert(0, self.skills_file_path)
+        # self.entry_skills.pack()
 
         self.label_resume = tk.Label(self.master, text="Select Resume PDF:")
         self.label_resume.pack()
@@ -32,11 +34,7 @@ class BloomSkillsExtractorGUI:
         self.result_text = tk.Text(self.master, height=10, width=80)
         self.result_text.pack()
 
-    def browse_skills_file(self):
-        skills_file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
-        if skills_file_path:
-            self.entry_skills.delete(0, tk.END)
-            self.entry_skills.insert(0, skills_file_path)
+    # Omit the browse_skills_file method
 
     def browse_resume_file(self):
         resume_pdf_path = filedialog.askopenfilename()
@@ -45,20 +43,20 @@ class BloomSkillsExtractorGUI:
             self.entry_resume.insert(0, resume_pdf_path)
 
     def extract_skills(self):
-        skills_file_path = self.entry_skills.get()
+        # Use the hardcoded skills_file_path
         resume_pdf_path = self.entry_resume.get()
 
-        # Check if both documents are uploaded
-        if not skills_file_path or not resume_pdf_path:
-            messagebox.showerror("Error", "Please upload both skills file and resume PDF.")
+        # Check if resume PDF is uploaded
+        if not resume_pdf_path:
+            messagebox.showerror("Error", "Please upload a resume PDF.")
             return
+
         # Instantiate the BloomSkillsExtractor object
-        # Instantiate the BloomSkillsExtractor object
-        se = BloomSkillsExtractor(skills_file_path, resume_pdf_path)
+        se = BloomSkillsExtractor(self.skills_file_path, resume_pdf_path)
 
         # Call extract_skills_from_resume to get found and not found skills
         found_skills, not_found_skills = se.extract_skills_from_resume()
-        
+
         # Display results in the Text widget
         result_str = "Skills from the Skills File:\n"
 
