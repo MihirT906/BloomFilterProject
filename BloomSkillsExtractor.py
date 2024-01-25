@@ -35,7 +35,8 @@ class BloomSkillsExtractor:
         for skill in self.skills:
             bloom_filter.insert(skill)
         return bloom_filter
-
+        
+        
     def extract_skills_from_resume(self):
         '''
         Extracts all words from resume
@@ -71,8 +72,16 @@ class BloomSkillsExtractor:
 
             if not matched_skill:
                 i += 1
+                
+        not_found_skills = []
+        with open(self.file_path, 'r') as file:
+            skills = file.read().lower().split(', ')
+        
+        for skill in skills:
+            if not self.skill_filter.query(skill):
+                not_found_skills.append(skill)
 
-        return extracted_skills
+        return extracted_skills, not_found_skills
     
     def pretty_print(self):
         print("Candidate has the following skills:")

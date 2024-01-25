@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 from BloomSkillsExtractor import BloomSkillsExtractor
 
 class BloomSkillsExtractorGUI:
@@ -48,20 +48,29 @@ class BloomSkillsExtractorGUI:
         skills_file_path = self.entry_skills.get()
         resume_pdf_path = self.entry_resume.get()
 
+        # Check if both documents are uploaded
+        if not skills_file_path or not resume_pdf_path:
+            messagebox.showerror("Error", "Please upload both skills file and resume PDF.")
+            return
+        # Instantiate the BloomSkillsExtractor object
         # Instantiate the BloomSkillsExtractor object
         se = BloomSkillsExtractor(skills_file_path, resume_pdf_path)
 
-        # Capture the results in a formatted string
-        result_str = "Extracted Skills:\n"
-        extracted_skills = se.extract_skills_from_resume()
-
-        if extracted_skills:
-            for i, skill in enumerate(extracted_skills, start=1):
-                result_str += f"{i}. {skill}\n"
-        else:
-            result_str += "No skills found in the resume.\n"
-
+        # Call extract_skills_from_resume to get found and not found skills
+        found_skills, not_found_skills = se.extract_skills_from_resume()
+        
         # Display results in the Text widget
+        result_str = "Skills from the Skills File:\n"
+
+        # Display found skills with a check mark
+        for i, skill in enumerate(found_skills, start=1):
+            result_str += f"\u2713 {skill}\n"
+
+        # Display not found skills with a cross mark
+        for i, skill in enumerate(not_found_skills, start=1):
+            result_str += f"\u2717 {skill}\n"
+
+        # Update the Text widget
         self.result_text.delete(1.0, tk.END)
         self.result_text.insert(tk.END, result_str)
 
