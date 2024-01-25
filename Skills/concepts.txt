@@ -1,1 +1,1 @@
-Machine Learning, Cloud Computing, Scripting, Data Visualization, Natural Language Processing, API Integration, Recommender Systems, Software Development 
+Cloud Computing, Scripting, Data Visualization, API Integration, Recommender Systems, Software Development, ML, NLP

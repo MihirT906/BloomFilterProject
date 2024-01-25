@@ -1,1 +1,1 @@
-NumPy, pandas, scikit-learn, tensorflow, Apache Spark, hadoop, AWS, Tableau, MySQL, PostgreSQL, Git, 
+NumPy, pandas, scikit-learn, tensorflow, Apache Spark, hadoop, AWS, Tableau, MySQL, PostgreSQL, GitHub, react, docker
